@@ -9,6 +9,7 @@
     "brfs": "^2.0.2",
     "browserify": "^16.5.2",
     "express": "^4.17.1",
+    "masscss": "0.0.993",
     "stringify": "^5.2.0",
     "underscore.string": "^3.3.5",
     "watchify": "^3.11.1"

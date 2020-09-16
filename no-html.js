@@ -20,12 +20,9 @@ const fs = require('fs')
 no.makeIndex = (path, html) => {
 	if(!path) path = process.cwd() + '/index.html'
 	if(!html) html = no.html()
-		debugger 
 	fs.writeFileSync(path, html )
 }
 
-
-//no.css = () => `${masscss}`
 
 const express = require('express')
 no.server = port => {
@@ -50,11 +47,16 @@ no.index = html => {
 	})
 }
 
-
+//CSS:
+const stringify = require('stringify')
+stringify.registerWithRequire({
+	appliesTo: {includeExtensions: ['.css']}
+})
+//^ the above tek let's us then require CSS below:
+no.css = require('masscss')
 
 //bundle...
 const browserify = require('browserify')
-const stringify = require('stringify')
 const watchify = require('watchify')
 
 //no.bundle = bundleName => bundle(bundleName)
