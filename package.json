@@ -6,7 +6,6 @@
     "@babel/core": "7.5.5",
     "@babel/preset-env": "7.5.5",
     "babelify": "10.0.0",
-    "brfs": "^2.0.2",
     "browserify": "^16.5.2",
     "express": "^4.17.1",
     "masscss": "0.0.993",
