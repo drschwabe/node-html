@@ -38,8 +38,8 @@ no.static = directory => {
 	no.expressApp.use(express.static(directory))
 }
 
-no.index = html => {
-	if(!no.expressApp) no.server()
+no.index = (html, port) => {
+	if(!no.expressApp) no.server( port ? port : null )
 	if(!html) html = no.html()
 	//should autodetect if a client.bundle.js file is on fs
 	no.expressApp.get('/', (req, res) => {
