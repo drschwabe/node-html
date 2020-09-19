@@ -55,6 +55,12 @@ stringify.registerWithRequire({
 //^ the above tek let's us then require CSS below:
 no.css = require('masscss')
 
+
+//JQuery
+const cheerio = require('cheerio') 
+no.jquery = cheerio.load
+
+
 //bundle...
 const browserify = require('browserify')
 const watchify = require('watchify')
