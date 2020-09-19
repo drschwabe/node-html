@@ -1,5 +1,5 @@
 {
-  "name": "no-html",
+  "name": "nodejs-html",
   "version": "0.0.1",
   "main": "no-html.js",
   "dependencies": {
