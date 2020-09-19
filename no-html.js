@@ -78,7 +78,6 @@ no.watch = (clientJsName, bundleName) => {
 	const bundle = () => {
 		b.bundle( (err, buff) => {
 			if(err) return console.warn(err)
-			console.log('writing new bundle...')
 			fs.writeFile(`${directory}/${bundleName}`,buff, (err) => {
 				if(err) return console.warn(err)
 				console.log(`wrote to ${bundleName}`)
@@ -99,7 +98,10 @@ no.watch = (clientJsName, bundleName) => {
 		sourceType : 'unambiguous',
 		global: true
 	})
-	b.on('update', bundle)
+	b.on('update', () => {
+		console.log('writing new bundle...')
+		bundle()
+	})
 	bundle()
 }
 
