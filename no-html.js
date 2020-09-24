@@ -64,11 +64,12 @@ no.jquery = cheerio.load
 //bundle...
 const browserify = require('browserify')
 const watchify = require('watchify')
+const UglifyJS = require("uglify-js")
 
-//no.bundle = bundleName => bundle(bundleName)
 const path = require('path')
 
-no.watch = (clientJsName, bundleName) => {
+const compile = (watch, compress, clientJsName, bundleName) => {
+
 	if(!clientJsName) clientJsName = 'client.js'
 	if(!bundleName) bundleName = 'client.bundle.js'
 
@@ -87,12 +88,20 @@ no.watch = (clientJsName, bundleName) => {
 			fs.writeFile(`${directory}/${bundleName}`,buff, (err) => {
 				if(err) return console.warn(err)
 				console.log(`wrote to ${bundleName}`)
+				if(compress) {
+					console.log('compressing...')
+					let result = UglifyJS.minify(fs.readFileSync(`${directory}/${bundleName}`, 'utf8'))
+					if (result.error) return console.error(result.error)
+					fs.writeFileSync(`${directory}/${bundleName}`, result.code)
+					console.log('done!')
+				}
 			})
 		})
 		.on('error', console.error)
 	}
 
-	b.plugin(watchify)
+	if(watch) b.plugin(watchify)
+
 	b.transform(stringify({
 		extensions: [ '.html' , '.css', '.svg'],
 	}), {
@@ -110,5 +119,9 @@ no.watch = (clientJsName, bundleName) => {
 	})
 	bundle()
 }
+
+no.watch = (...params) => compile(true, false, ...params)
+
+no.compile = (...params) => compile(...params)
 
 module.exports = no
