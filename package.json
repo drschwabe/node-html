@@ -1,10 +1,12 @@
 {
   "name": "nodejs-html",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "no-html.js",
   "dependencies": {
     "@babel/core": "7.5.5",
     "@babel/preset-env": "7.5.5",
+    "@babel/runtime": "^7.11.2",
+    "@babel/plugin-transform-runtime": "^7.11.5",
     "babelify": "10.0.0",
     "browserify": "^16.5.2",
     "cheerio": "^1.0.0-rc.3",

@@ -111,7 +111,8 @@ const compile = (watch, compress, clientJsName, bundleName) => {
 	b.transform("babelify", {
 		presets: ["@babel/preset-env"],
 		sourceType : 'unambiguous',
-		global: true
+		global: true,
+		plugins: ["@babel/transform-runtime"]
 	})
 	b.on('update', () => {
 		console.log('writing new bundle...')
