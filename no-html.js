@@ -112,7 +112,7 @@ const compile = (watch, compress, clientJsName, bundleName) => {
 		presets: ["@babel/preset-env"],
 		sourceType : 'unambiguous',
 		global: true,
-		plugins: ["@babel/transform-runtime"]
+		plugins: [["@babel/plugin-transform-runtime", {absoluteRuntime : true }]]
 	})
 	b.on('update', () => {
 		console.log('writing new bundle...')
