@@ -33,9 +33,10 @@ no.server = port => {
 }
 
 const _s = require('underscore.string')
-no.static = directory => {
+no.static = (route, directory) => {
+	if(!route) route = '/'
 	if(!directory) directory =  _s.strLeftBack( require.main.filename, '/' )
-	no.expressApp.use(express.static(directory))
+	no.expressApp.use(route, express.static(directory))
 }
 
 no.index = (html, port) => {
