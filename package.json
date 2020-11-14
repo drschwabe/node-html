@@ -1,7 +1,14 @@
 {
   "name": "nodejs-html",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "main": "no-html.js",
+  "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
+  "keywords": ["express", "static", "browserify", "html skeleton", "html", "bundle"],
+  "homepage": "https://github.com/drschwabe/no",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/drschwabe/no"
+  },
   "dependencies": {
     "@babel/core": "7.5.5",
     "@babel/preset-env": "7.5.5",
