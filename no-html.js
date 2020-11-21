@@ -4,6 +4,7 @@ no.html = (css, body, script) => {
 	return `
 <html>
 <head>
+	<meta charset="utf-8" />
 	<style>
 		${css ? css : '' }
 	</style>
