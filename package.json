@@ -1,9 +1,16 @@
 {
   "name": "nodejs-html",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "no-html.js",
   "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
-  "keywords": ["express", "static", "browserify", "html skeleton", "html", "bundle"],
+  "keywords": [
+    "express",
+    "static",
+    "browserify",
+    "html skeleton",
+    "html",
+    "bundle"
+  ],
   "homepage": "https://github.com/drschwabe/no",
   "repository": {
     "type": "git",

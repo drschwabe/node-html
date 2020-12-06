@@ -37,16 +37,21 @@ const _s = require('underscore.string')
 no.static = (route, directory) => {
 	if(!route) route = '/'
 	if(!directory) directory =  _s.strLeftBack( require.main.filename, '/' )
+	//TODO: start express app if not already started.
 	no.expressApp.use(route, express.static(directory))
 }
 
 no.index = (html, port) => {
-	if(!no.expressApp) no.server( port ? port : null )
+	let newExpressServer 
+	if(!no.expressApp) {
+		newExpressServer = no.server( port ? port : null )
+	}
 	if(!html) html = no.html()
 	//should autodetect if a client.bundle.js file is on fs
 	no.expressApp.get('/', (req, res) => {
 		res.send( html )
 	})
+	if(newExpressServer) return newExpressServer
 }
 
 //CSS:
