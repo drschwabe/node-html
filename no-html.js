@@ -76,30 +76,39 @@ const UglifyJS = require("uglify-js")
 const path = require('path')
 
 const compile = (watch, compress, clientJsName, bundleName) => {
-
 	if(!clientJsName) clientJsName = 'client.js'
-	if(!bundleName) bundleName = 'client.bundle.js'
 
-	let directory = _s.strLeftBack( require.main.filename, '/' )
+	let clientBaseName =  _s(clientJsName).strLeftBack('.js').strRightBack('/').value() 
+
+	let targetDirectory
+	if(clientJsName.search('/') > -1) targetDirectory =  _s.strLeftBack( clientJsName, '/' )
+
+	if(!bundleName && targetDirectory) {
+		bundleName = `${targetDirectory}/${clientBaseName}.bundle.js`
+	} else {
+		bundleName = 'client.bundle.js'
+	} 
+
+	let baseDirectory = _s.strLeftBack( require.main.filename, '/' )
 	let b = browserify({
 		cache: {},
 		packageCache: {},
 		debug : true,
-		basedir : directory,
+		basedir : baseDirectory,
 		commondir : false
 	})
 
 	const bundle = () => {
 		b.bundle( (err, buff) => {
 			if(err) return console.warn(err)
-			fs.writeFile(`${directory}/${bundleName}`,buff, (err) => {
+			fs.writeFile(`${baseDirectory}/${bundleName}`,buff, (err) => {
 				if(err) return console.warn(err)
 				console.log(`wrote to ${bundleName}`)
 				if(compress) {
 					console.log('compressing...')
-					let result = UglifyJS.minify(fs.readFileSync(`${directory}/${bundleName}`, 'utf8'))
+					let result = UglifyJS.minify(fs.readFileSync(`${baseDirectory}/${bundleName}`, 'utf8'))
 					if (result.error) return console.error(result.error)
-					fs.writeFileSync(`${directory}/${bundleName}`, result.code)
+					fs.writeFileSync(`${baseDirectory}/${bundleName}`, result.code)
 					console.log('done!')
 				}
 			})
@@ -114,7 +123,7 @@ const compile = (watch, compress, clientJsName, bundleName) => {
 	}), {
 		global: true
 	})
-	b.add(`${directory}/${clientJsName}`)
+	b.add(`${baseDirectory}/${clientJsName}`)
 	b.transform("babelify", {
 		presets: ["@babel/preset-env"],
 		sourceType : 'unambiguous',

@@ -1,6 +1,6 @@
 {
   "name": "nodejs-html",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "main": "no-html.js",
   "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
   "keywords": [
