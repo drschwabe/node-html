@@ -53,6 +53,7 @@ no.index = (html, port) => {
 	})
 	if(newExpressServer) return newExpressServer
 }
+no.serveIndex = no.index //< alias
 
 //CSS:
 const stringify = require('stringify')
@@ -66,7 +67,7 @@ no.css = require('masscss')
 //JQuery
 const cheerio = require('cheerio') 
 no.jquery = cheerio.load
-
+no.jQuery = cheerio.load //< alias; common spelling variant.
 
 //bundle...
 const browserify = require('browserify')
