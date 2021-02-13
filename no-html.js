@@ -86,7 +86,7 @@ const compile = (watch, compress, clientJsName, bundleName) => {
 	if(!bundleName && targetDirectory) {
 		bundleName = `${targetDirectory}/${clientBaseName}.bundle.js`
 	} else {
-		bundleName = 'client.bundle.js'
+		bundleName = `${clientBaseName}.bundle.js`
 	} 
 
 	let baseDirectory = _s.strLeftBack( require.main.filename, '/' )
