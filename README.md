@@ -81,7 +81,7 @@ no.index( no.html(null,null,'myscript.js') )
 <br>
 
 
-**index**   
+**css**   
 `no.css(html, port)`  
 Returns a string of [MassCSS]
 
@@ -116,8 +116,6 @@ Supply booleans as first params to indicate whether to `watch` or `compress` the
 
 This 'holy grail' build configuration *if all goes well* should allow you to use ES6 imports and Node/CommonJS require calls interchangeably.  And allows you to require `.html`, `.css`, and `.svg` extensions. 
 
-Note: see [compiling](#compiling) for potential prerequisite
-
 ```javascript
 let html = no.html(null,null, 'client.bundle.js') 
 no.makeIndex(html) //< writes the html to disk
@@ -132,8 +130,6 @@ no.compile(false,true)
 
 Alias for `no.compile(true,false)` this will watch the optional `clientJsName` and output `bundleName` (defaults to `client.js` and `client.bundle.js`)
 
-Note: see [compiling](#compiling) for potential prerequisite
-
 ```javascript
 let html = no.html(null,null, 'client.bundle.js') 
 no.watch(null, '/public/client.bundle.js')
@@ -144,22 +140,10 @@ no.watch(null, '/public/client.bundle.js')
 
 Also note: this particular build configuration makes for a rather system intensive process, especially when `watch`ing. 
 
-
-#### compiling/watching extra step
-<a name="compiling"></a>
-
-To use the `no.compile()` and/or `no.watch()` functions you may need to install the following dependencies (copy/paste and run in your local project): 
-
-```bash
-npm install @babel/core@7.5.5 @babel/preset-env@7.5.5 @babel/runtime@7.11.2 @babel/plugin-transform-runtime@7.11.5 @babel/plugin-external-helpers@7.10.4 babelify@10.0.0 --saveDev
-```
-
-This is necessary to give Browserify & Babel context within your project's local directory (ie- so it can watch/re-compile as any files in your project change).  
-
 MIT
 
 
-[See template]: ./no-html.js#3
+[See template]: ./node-html.js#3
 [MassCSS]: https://github.com/drschwabe/masscss
 [cheerio.load]: https://github.com/cheeriojs/cheerio
 [browserify]: https://github.com/browserify/browserify
