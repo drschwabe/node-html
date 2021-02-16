@@ -9,12 +9,16 @@
     "browserify",
     "html skeleton",
     "html",
-    "bundle"
+    "bundle",
+    "node",
+    "import",
+    "require",
+    "jquery"
   ],
-  "homepage": "https://github.com/drschwabe/no",
+  "homepage": "https://github.com/drschwabe/node-html",
   "repository": {
     "type": "git",
-    "url": "https://github.com/drschwabe/no"
+    "url": "https://github.com/drschwabe/node-html"
   },
   "dependencies": {
     "@babel/core": "7.5.5",
