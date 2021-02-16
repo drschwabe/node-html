@@ -1,7 +1,7 @@
 {
   "name": "node-html",
-  "version": "1.0.0-beta",
-  "main": "no-html.js",
+  "version": "1.0.0-beta.1",
+  "main": "node-html.js",
   "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
   "keywords": [
     "express",
