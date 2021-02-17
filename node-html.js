@@ -74,8 +74,6 @@ const browserify = require('browserify')
 const watchify = require('watchify')
 const UglifyJS = require("uglify-js")
 
-const path = require('path')
-
 const compile = (watch, compress, clientJsName, bundleName) => {
 	if(!clientJsName) clientJsName = 'client.js'
 
@@ -86,7 +84,7 @@ const compile = (watch, compress, clientJsName, bundleName) => {
 
 	if(!bundleName && targetDirectory) {
 		bundleName = `${targetDirectory}/${clientBaseName}.bundle.js`
-	} else {
+	} else if(!bundleName) {
 		bundleName = `${clientBaseName}.bundle.js`
 	} 
 
