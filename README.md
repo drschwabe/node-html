@@ -140,6 +140,20 @@ no.watch(null, '/public/client.bundle.js')
 
 Also note: this particular build configuration makes for a rather system intensive process, especially when `watch`ing. 
 
+
+**compress**   
+`no.compress(inputScript, outputTarget, options)`  
+
+Standalone compress function, uses [UglifyJS].minify
+Pass raw script input, optional output target (otherwise defaults to `bundle.js`), and optional options obj which is subsequently passed as `compress` options obj to UglifyJS's Minify API. 
+
+```javascript
+const scriptPath = './public/myBundle.js'
+const script = fs.readFileSync(scriptPath, 'utf-8')
+no.compress(script, scriptPath, { drop_console : true })
+//> ./public/myBundle.js now significantly smaller and no console.log output
+```
+
 MIT
 
 
@@ -150,3 +164,4 @@ MIT
 [stringify]: https://github.com/JohnPostlethwait/stringify
 [babelify]: https://github.com/babel/babelify
 [Babel]: https://github.com/babel/babel
+[UglifyJS]: https://github.com/mishoo/UglifyJS

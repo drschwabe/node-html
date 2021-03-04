@@ -73,6 +73,7 @@ no.jQuery = cheerio.load //< alias; common spelling variant.
 const browserify = require('browserify')
 const watchify = require('watchify')
 const UglifyJS = require("uglify-js")
+const _ = require('underscore')
 
 const compile = (watch, compress, clientJsName, bundleName) => {
 	if(!clientJsName) clientJsName = 'client.js'
@@ -104,8 +105,11 @@ const compile = (watch, compress, clientJsName, bundleName) => {
 				if(err) return console.warn(err)
 				console.log(`wrote to ${bundleName}`)
 				if(compress) {
+					let options = {
+						compress : _.isObject(compress) ? compress : {}
+					}
 					console.log('compressing...')
-					let result = UglifyJS.minify(fs.readFileSync(`${baseDirectory}/${bundleName}`, 'utf8'))
+					let result = UglifyJS.minify(fs.readFileSync(`${baseDirectory}/${bundleName}`, 'utf8'), options)
 					if (result.error) return console.error(result.error)
 					fs.writeFileSync(`${baseDirectory}/${bundleName}`, result.code)
 					console.log('done!')
@@ -139,5 +143,15 @@ const compile = (watch, compress, clientJsName, bundleName) => {
 no.watch = (...params) => compile(true, false, ...params)
 
 no.compile = (...params) => compile(...params)
+
+no.compress = (inputScript, outputTarget, options) => {
+	options = {
+		compress : _.isObject(options) ? options : {}
+	}
+	if(!outputTarget) outputTarget = __dirname + 'bundle.js'
+	let result = UglifyJS.minify(inputScript, options)
+	if (result.error) return console.error(result.error)
+	fs.writeFileSync(outputTarget, result.code)
+}
 
 module.exports = no
