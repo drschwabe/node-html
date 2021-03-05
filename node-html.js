@@ -75,69 +75,74 @@ const watchify = require('watchify')
 const UglifyJS = require("uglify-js")
 const _ = require('underscore')
 
-const compile = (watch, compress, clientJsName, bundleName) => {
-	if(!clientJsName) clientJsName = 'client.js'
+const compile = async (watch, compress, clientJsName, bundleName) => {
+	return new Promise((resolve, reject) => {
+		if(!clientJsName) clientJsName = 'client.js'
 
-	let clientBaseName =  _s(clientJsName).strLeftBack('.js').strRightBack('/').value() 
+		let clientBaseName =  _s(clientJsName).strLeftBack('.js').strRightBack('/').value() 
 
-	let targetDirectory
-	if(clientJsName.search('/') > -1) targetDirectory =  _s.strLeftBack( clientJsName, '/' )
+		let targetDirectory
+		if(clientJsName.search('/') > -1) targetDirectory =  _s.strLeftBack( clientJsName, '/' )
 
-	if(!bundleName && targetDirectory) {
-		bundleName = `${targetDirectory}/${clientBaseName}.bundle.js`
-	} else if(!bundleName) {
-		bundleName = `${clientBaseName}.bundle.js`
-	} 
+		if(!bundleName && targetDirectory) {
+			bundleName = `${targetDirectory}/${clientBaseName}.bundle.js`
+		} else if(!bundleName) {
+			bundleName = `${clientBaseName}.bundle.js`
+		} 
 
-	let baseDirectory = _s.strLeftBack( require.main.filename, '/' )
-	let b = browserify({
-		cache: {},
-		packageCache: {},
-		debug : true,
-		basedir : baseDirectory,
-		commondir : false
-	})
-
-	const bundle = () => {
-		b.bundle( (err, buff) => {
-			if(err) return console.warn(err)
-			fs.writeFile(`${baseDirectory}/${bundleName}`,buff, (err) => {
-				if(err) return console.warn(err)
-				console.log(`wrote to ${bundleName}`)
-				if(compress) {
-					let options = {
-						compress : _.isObject(compress) ? compress : {}
-					}
-					console.log('compressing...')
-					let result = UglifyJS.minify(fs.readFileSync(`${baseDirectory}/${bundleName}`, 'utf8'), options)
-					if (result.error) return console.error(result.error)
-					fs.writeFileSync(`${baseDirectory}/${bundleName}`, result.code)
-					console.log('done!')
-				}
-			})
+		let baseDirectory = _s.strLeftBack( require.main.filename, '/' )
+		let b = browserify({
+			cache: {},
+			packageCache: {},
+			debug : true,
+			basedir : baseDirectory,
+			commondir : false
 		})
-		.on('error', console.error)
-	}
 
-	if(watch) b.plugin(watchify)
+		const bundle = () => {
+			b.bundle( (err, buff) => {
+				if(err) return console.warn(err)
+				fs.writeFile(`${baseDirectory}/${bundleName}`,buff, (err) => {
+					if(err) return console.warn(err)
+					console.log(`wrote to ${bundleName}`)
+					if(compress) {
+						let options = {
+							compress : _.isObject(compress) ? compress : {}
+						}
+						console.log('compressing...')
+						let result = UglifyJS.minify(fs.readFileSync(`${baseDirectory}/${bundleName}`, 'utf8'), options)
+						if (result.error) return console.error(result.error)
+						fs.writeFileSync(`${baseDirectory}/${bundleName}`, result.code)
+						console.log('done!')
+						resolve()
+					}
+				})
+			})
+			.on('error', error => {
+				reject(error)
+			})
+		}
 
-	b.transform(stringify({
-		extensions: [ '.html' , '.css', '.svg'],
-	}), {
-		global: true
-	})
-	b.add(`${baseDirectory}/${clientJsName}`)
-	b.transform("babelify", {
-		presets: ["@babel/preset-env"],
-		sourceType : 'unambiguous',
-		global: true,
-		plugins: [["@babel/plugin-transform-runtime", {absoluteRuntime : true }]]
-	})
-	b.on('update', () => {
-		console.log('writing new bundle...')
+		if(watch) b.plugin(watchify)
+
+		b.transform(stringify({
+			extensions: [ '.html' , '.css', '.svg'],
+		}), {
+			global: true
+		})
+		b.add(`${baseDirectory}/${clientJsName}`)
+		b.transform("babelify", {
+			presets: ["@babel/preset-env"],
+			sourceType : 'unambiguous',
+			global: true,
+			plugins: [["@babel/plugin-transform-runtime", {absoluteRuntime : true }]]
+		})
+		b.on('update', () => {
+			console.log('writing new bundle...')
+			bundle()
+		})
 		bundle()
 	})
-	bundle()
 }
 
 no.watch = (...params) => compile(true, false, ...params)

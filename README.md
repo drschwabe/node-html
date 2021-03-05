@@ -108,7 +108,7 @@ $.html()
 <br>
 
 **compile**   
-`no.compile(watch, compress, clientJsName, bundleName)`  
+`await no.compile(watch, compress, clientJsName, bundleName)`  
 
 Runs [browserify] with a preconfigured set of transforms including [stringify] and [babelify] (and [Babel] presets,plugins, and additional pre-configuration).  
 
@@ -119,7 +119,7 @@ This 'holy grail' build configuration *if all goes well* should allow you to use
 ```javascript
 let html = no.html(null,null, 'client.bundle.js') 
 no.makeIndex(html) //< writes the html to disk
-no.compile(false,true) 
+await no.compile(false,true) 
 //> outputs a compressed bundle of a file called `client.js` in your cwd 
 ```
 <br>
