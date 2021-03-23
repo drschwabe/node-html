@@ -114,8 +114,8 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 						if (result.error) return console.error(result.error)
 						fs.writeFileSync(`${baseDirectory}/${bundleName}`, result.code)
 						console.log('done!')
-						resolve()
 					}
+					resolve()
 				})
 			})
 			.on('error', error => {
