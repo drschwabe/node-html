@@ -24,6 +24,11 @@ no.makeIndex = (path, html) => {
 	fs.writeFileSync(path, html )
 }
 
+no.makeHTML = (pathAndFileName, html) => {
+	if(!pathAndFileName) return console.error('path and filename required')
+	if(!html) html = no.html()
+	fs.writeFileSync(pathAndFileName, html)
+}
 
 const express = require('express')
 no.server = port => {
