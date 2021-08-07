@@ -87,7 +87,11 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 		let clientBaseName =  _s(clientJsName).strLeftBack('.js').strRightBack('/').value() 
 
 		let targetDirectory
-		if(clientJsName.search('/') > -1) targetDirectory =  _s.strLeftBack( clientJsName, '/' )
+		if(bundleName.search('/') > -1) {
+			targetDirectory =  _s.strLeftBack( bundleName, '/' )
+		} else if(clientJsName.search('/') > -1) {
+			targetDirectory =  _s.strLeftBack( clientJsName, '/' )
+		}
 
 		if(!bundleName && targetDirectory) {
 			bundleName = `${targetDirectory}/${clientBaseName}.bundle.js`
@@ -104,10 +108,12 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 			commondir : false
 		})
 
+		const bundleOutputPath = targetDirectory ? bundleName : baseDirectory + bundleName
+
 		const bundle = () => {
 			b.bundle( (err, buff) => {
 				if(err) return console.warn(err)
-				fs.writeFile(`${baseDirectory}/${bundleName}`,buff, (err) => {
+				fs.writeFile(bundleOutputPath,buff, (err) => {
 					if(err) return console.warn(err)
 					console.log(`wrote to ${bundleName}`)
 					if(compress) {
