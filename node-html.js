@@ -121,9 +121,9 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 							compress : _.isObject(compress) ? compress : {}
 						}
 						console.log('compressing...')
-						let result = UglifyJS.minify(fs.readFileSync(`${baseDirectory}/${bundleName}`, 'utf8'), options)
+						let result = UglifyJS.minify(fs.readFileSync(bundleOutputPath, 'utf8'), options)
 						if (result.error) return console.error(result.error)
-						fs.writeFileSync(`${baseDirectory}/${bundleName}`, result.code)
+						fs.writeFileSync(bundleOutputPath, result.code)
 						console.log('done!')
 					}
 					resolve()
