@@ -87,7 +87,7 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 		let clientBaseName =  _s(clientJsName).strLeftBack('.js').strRightBack('/').value() 
 
 		let targetDirectory
-		if(bundleName.search('/') > -1) {
+		if(bundleName && bundleName.search('/') > -1) {
 			targetDirectory =  _s.strLeftBack( bundleName, '/' )
 		} else if(clientJsName.search('/') > -1) {
 			targetDirectory =  _s.strLeftBack( clientJsName, '/' )
@@ -108,7 +108,7 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 			commondir : false
 		})
 
-		const bundleOutputPath = targetDirectory ? bundleName : baseDirectory + bundleName
+		const bundleOutputPath = targetDirectory ? bundleName : baseDirectory + '/' + bundleName
 
 		const bundle = () => {
 			b.bundle( (err, buff) => {
