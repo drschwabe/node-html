@@ -1,13 +1,16 @@
 const no = {}
 
 no.html = (css, body, script) => {
+	if(css.search('.css')) {
+		css = `<link href="${css}" rel="stylesheet">`
+	} else {
+		css = `<style>${css}</style>`
+	}
 	return `
 <html>
 <head>
 	<meta charset="utf-8" />
-	<style>
-		${css ? css : '' }
-	</style>
+	${css}
 </head>
 <body>
 	${body ? body : ''}
