@@ -1,7 +1,7 @@
 const no = {}
 
 no.html = (css, body, script) => {
-	if(css.search('.css')) {
+	if(css.search('.css') && css.search('{') === -1) {
 		css = `<link href="${css}" rel="stylesheet">`
 	} else {
 		css = `<style>${css}</style>`
