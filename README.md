@@ -83,11 +83,11 @@ no.index( no.html(null,null,'myscript.js') )
 
 **css**   
 `no.css(html, port)`  
-Returns a string of [MassCSS]
+Returns a string containing [Tailwind CSS]
 
 ```javascript
-no.html(no.css,`<h1 class="green">Now we can use CSS</h1>`))
-// > HTML skeleton with the above h1 tag in the <body> and MassCSS loaded into the <head><style> tag
+no.html(no.css,`<h1 class="text-green-500">Now we can use CSS</h1>`))
+// > HTML skeleton with the above h1 tag in the <body> and Tailwind CSS loaded into the <head><style> tag
 ```
 <br>
 
@@ -158,7 +158,7 @@ MIT
 
 
 [See template]: ./node-html.js#3
-[MassCSS]: https://github.com/drschwabe/masscss
+[Tailwind CSS]: https://www.tailwindcss.com
 [cheerio.load]: https://github.com/cheeriojs/cheerio
 [browserify]: https://github.com/browserify/browserify
 [stringify]: https://github.com/JohnPostlethwait/stringify

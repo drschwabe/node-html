@@ -69,8 +69,11 @@ stringify.registerWithRequire({
 	appliesTo: {includeExtensions: ['.css']}
 })
 //^ the above tek let's us then require CSS below:
-no.css = require('masscss')
 
+const path = require('path')
+const tailwindModulePath = require.resolve('tailwindcss')
+const tailwindDistPath = path.resolve( tailwindModulePath, '../../dist/')
+no.css = require(tailwindDistPath + '/tailwind.min.css' )
 
 //JQuery
 const cheerio = require('cheerio') 
