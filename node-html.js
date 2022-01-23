@@ -3,10 +3,10 @@ const no = {}
 no.html = (css, body, script) => {
 	if(!css) {
 		css = ''
-	} else if(css.search('.css') && css.search('{') === -1) {
-		css = `<link href="${css}" rel="stylesheet">`
-	} else {
+	} else if(css.search('{')) {
 		css = `<style>${css}</style>`
+	} else if(css.search('http')) {
+		css = `<link href="${css}" rel="stylesheet">`
 	}
 	return `
 <html>
