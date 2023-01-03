@@ -1,6 +1,6 @@
 const no = {}
 
-no.html = (css, body, script) => {
+no.html = (css, body, script, title, favicon) => {
 	if(!css) {
 		css = ''
 	} else if(css.search('{')) {
@@ -8,16 +8,35 @@ no.html = (css, body, script) => {
 	} else if(css.search('http')) {
 		css = `<link href="${css}" rel="stylesheet">`
 	}
+  if(favicon && _.isBoolean(favicon)) {
+    //use default favicon filename: 
+    favicon = `<link rel="shortcut icon" 
+    type="image/x-icon" href="/favicon.ico">`
+  } else if(favicon) {
+    script = `<link rel="shortcut icon" 
+    type="image/x-icon" href="${favicon}">` 
+  }    
+
+  if(script && _.isBoolean(script)) {
+    //use default filename 'client.bundle.js' : 
+    script = `<script src="client.bundle.js"></script>` 
+  } else if(script) {
+    script = `<script src="${script}"></script>`
+  }
 	return `
 <html>
 <head>
-	<meta charset="utf-8" />
+  <meta name="viewport" 
+    content="width=device-width, initial-scale=1"> 
+  ${ title ? `<title>${title}</title>` : '' } 
+
+  ${ favicon ? favicon : '' } 
 	${css}
 </head>
 <body>
 	${body ? body : ''}
-	${script ? `<script src="${script}"></script>` : '' }
-</body>
+	${script ? script : '' }
+</body>            
 </html>
 `
 }
