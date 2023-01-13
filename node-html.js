@@ -64,25 +64,26 @@ no.server = port => {
 	return no.expressApp
 }
 
+no.express = express 
+
 const _s = require('underscore.string')
-no.static = (route, directory) => {
+no.static = (route, directory, expressApp) => {
 	if(!route) route = '/'
 	if(!directory) directory =  _s.strLeftBack( require.main.filename, '/' )
 	//TODO: start express app if not already started.
-	no.expressApp.use(route, express.static(directory))
+  let theExpressApp = expressApp ? expressApp : no.expressApp
+	theExpressApp.use(route, express.static(directory))
 }
 
-no.index = (html, port) => {
-	let newExpressServer 
-	if(!no.expressApp) {
-		newExpressServer = no.server( port ? port : null )
+no.index = (html, port, expressApp) => {
+	if(!no.expressApp && !expressApp) {
+		expressApp = no.server( port ? port : null )
 	}
 	if(!html) html = no.html()
 	//should autodetect if a client.bundle.js file is on fs
-	no.expressApp.get('/', (req, res) => {
-		res.send( html )
-	})
-	if(newExpressServer) return newExpressServer
+	expressApp.get('/', (req, res) => 
+    res.send( html )) 
+  return expressApp
 }
 no.serveIndex = no.index //< alias
 
