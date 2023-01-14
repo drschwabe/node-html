@@ -3,7 +3,7 @@ const no = {}
 no.html = (css, body, script, title, favicon) => {
 	if(!css) {
 		css = ''
-  } else if(css.search('<style>')) {
+  } else if(css.search('<style>') > -1) {
     css = css //< assume param is already a valid html block
 	} else if(css.search('{')) {
 		css = `<style>${css}</style>`
