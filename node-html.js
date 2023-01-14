@@ -78,7 +78,9 @@ no.static = (route, directory, expressApp) => {
 no.index = (html, port, expressApp) => {
 	if(!no.expressApp && !expressApp) {
 		expressApp = no.server( port ? port : null )
-	}
+	} else if(no.expressApp && !expressApp) {
+    expressApp = no.expressApp 
+  }
 	if(!html) html = no.html()
 	//should autodetect if a client.bundle.js file is on fs
 	expressApp.get('/', (req, res) => 
