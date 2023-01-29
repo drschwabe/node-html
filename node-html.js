@@ -205,6 +205,8 @@ no.compress = (inputScript, outputTarget, options) => {
 no.twCdn = `
   <script src="https://cdn.tailwindcss.com"></script>
 `
+no.tw = no.twCdn  
+
 no.twBasic = `
  <style type="text/tailwindcss">   
   a { @apply text-blue-700 font-semibold } 
