@@ -1,6 +1,6 @@
 const no = {}
 
-no.html = (css, body, script, title, favicon) => {
+no.html = (css, body, script, title, favicon, headScript) => {
 	if(!css) {
 		css = ''
   } else if(css.search('<style>') > -1) {
@@ -33,6 +33,7 @@ no.html = (css, body, script, title, favicon) => {
   ${ title ? `<title>${title}</title>` : '' } 
 
   ${ favicon ? favicon : '' } 
+  ${ headScript ? headScript : '' } 
 	${css}
 </head>
 <body>
