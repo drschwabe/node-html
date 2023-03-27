@@ -208,6 +208,8 @@ no.twCdn = `
 `
 no.tw = no.twCdn  
 
+no.twCdnUrl = "https://cdn.tailwindcss.com" 
+
 no.twBasic = `
  <style type="text/tailwindcss">   
   a { @apply text-blue-700 font-semibold } 
