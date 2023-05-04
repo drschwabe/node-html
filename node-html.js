@@ -64,6 +64,7 @@ no.server = port => {
 	no.expressApp.listen(port, () => console.log('http://localhost:' + port))
 	return no.expressApp
 }
+no.serve = no.server
 
 no.express = express 
 
