@@ -179,7 +179,11 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 			presets: ["@babel/preset-env"],
 			sourceType : 'unambiguous',
 			global: true,
-			plugins: [["@babel/plugin-transform-runtime", {absoluteRuntime : true }]]
+			plugins: [
+        ["@babel/plugin-transform-runtime", {absoluteRuntime : true }],
+        "@babel/plugin-transform-modules-commonjs", 
+        ["@babel/plugin-transform-react-jsx", { "pragma": "createElement" }] 
+		  ]
 		})
 		b.on('update', () => {
 			console.log('writing new bundle...')
