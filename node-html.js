@@ -239,6 +239,8 @@ no.twBasicCss = `
     color: #fff; 
     text-shadow: none;
   }    
+  button { @apply bg-gray-100 border border-black p-2 rounded } 
+  input { @apply border border-gray-200 p-2 } 
 `   
 
 no.twBasicStyle = `
