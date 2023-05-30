@@ -114,17 +114,18 @@ const watchify = require('watchify')
 const UglifyJS = require("uglify-js")
 const _ = require('underscore')
 
-const compile = async (watch, compress, clientJsName, bundleName) => {
+const compile = async (watch, compress, clientJsName, bundleName, cli) => {
 	return new Promise((resolve, reject) => {
 		if(!clientJsName) clientJsName = 'client.js'
 
 		let clientBaseName =  _s(clientJsName).strLeftBack('.js').strRightBack('/').value() 
 
-		let targetDirectory
+		let targetDirectory, inputPath  
 		if(bundleName && bundleName.search('/') > -1) {
 			targetDirectory =  _s.strLeftBack( bundleName, '/' )
 		} else if(clientJsName.search('/') > -1) {
 			targetDirectory =  _s.strLeftBack( clientJsName, '/' )
+      inputPath = clientJsName 
 		}
 
 		if(!bundleName && targetDirectory) {
@@ -133,7 +134,9 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 			bundleName = `${clientBaseName}.bundle.js`
 		} 
 
-		let baseDirectory = _s.strLeftBack( require.main.filename, '/' )
+    let baseDirectory = cli ? process.cwd() 
+      : _s.strLeftBack( require.main.filename , '/' )           
+
 		let b = browserify({
 			cache: {},
 			packageCache: {},
@@ -175,7 +178,7 @@ const compile = async (watch, compress, clientJsName, bundleName) => {
 		}), {
 			global: true
 		})
-		b.add(`${baseDirectory}/${clientJsName}`)
+		b.add(inputPath ? inputPath : `${baseDirectory}/${clientJsName}`)
 		b.transform("babelify", {
 			presets: ["@babel/preset-env"],
 			sourceType : 'unambiguous',
