@@ -26,21 +26,21 @@
   "dependencies": {
     "@babel/core": "7.5.5",
     "@babel/plugin-external-helpers": "7.10.4",
-    "@babel/plugin-transform-react-jsx": "^7.21.5",
+    "@babel/plugin-transform-react-jsx": "7.21.5",
     "@babel/plugin-transform-runtime": "7.11.5",
     "@babel/preset-env": "7.5.5",
     "@babel/runtime": "7.11.2",
     "babelify": "10.0.0",
     "browserify": "16.5.2",
-    "cheerio": "^1.0.0-rc.3",
-    "express": "^4.17.1",
-    "minimist": "^1.2.8",
+    "cheerio": "1.0.0-rc.3",
+    "express": "4.17.1",
+    "minimist": "1.2.8",
     "stringify": "5.2.0",
     "tailwindcss": "2.2.17",
     "uglify-js": "3.12.1",
-    "underscore": "^1.12.0",
+    "underscore": "1.12.0",
     "underscore.string": "3.3.5",
-    "watchify": "^4.0.0"
+    "watchify": "4.0.0"
   },
   "bin": {
     "node-html": "./cli.js"
