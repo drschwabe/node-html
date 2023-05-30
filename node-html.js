@@ -218,20 +218,25 @@ no.tw = no.twCdn
 
 no.twCdnUrl = "https://cdn.tailwindcss.com" 
 
-no.twBasic = `
- <style type="text/tailwindcss">   
+no.twBasicCss = `
   a { @apply text-blue-700 font-semibold } 
-  h6, .h6 { @apply text-6xl }
-  h5, .h5 { @apply text-5xl }
-  h4, .h4 { @apply text-4xl }
-  h3, .h3 { @apply text-3xl } 
-  h2, .h2 { @apply text-2xl }
-  h1, .h1 { @apply text-xl } 
+  h8, .h8 { @apply text-xs }
+  h7, .h7 { @apply text-sm }
+  h5, .h5 { @apply text-lg }
+  h4, .h4 { @apply text-xl }
+  h3, .h3 { @apply text-2xl } 
+  h2, .h2 { @apply text-3xl }
+  h1, .h1 { @apply text-4xl  } 
   ::selection { 
     @apply bg-purple-800; 
     color: #fff; 
     text-shadow: none;
-  }                                  
+  }    
+`   
+
+no.twBasicStyle = `
+ <style type="text/tailwindcss">   
+   ${no.twBasicCss}                              
  </style> 
 `
 
