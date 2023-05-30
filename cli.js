@@ -11,6 +11,12 @@ if(command === 'compile') {
     process.cwd() + '/client.js', 'client.bundle.js', true)  
 }
 
+if(command === 'watch') {
+  log('watch client.js ....') 
+  no.compile(true, false, 
+    process.cwd() + '/client.js', 'client.bundle.js', true)  
+} 
+
 if(command === 'serve') {
   log('start Express server....') 
   no.server() 
