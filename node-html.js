@@ -102,6 +102,9 @@ const path = require('path')
 const tailwindModulePath = require.resolve('tailwindcss')
 const tailwindDistPath = path.resolve( tailwindModulePath, '../../dist/')
 no.css = require(tailwindDistPath + '/tailwind.min.css' )
+no.twCss = no.css //< alias 
+no.style = `<style>${no.css}</style>`
+no.twStyle = no.style 
 
 //JQuery
 const cheerio = require('cheerio') 
@@ -215,6 +218,10 @@ no.twCdn = `
   <script src="https://cdn.tailwindcss.com"></script>
 `
 no.tw = no.twCdn  
+no.twCdnScript = no.twCdn  
+
+no.twLocal = `<script src="/tailwind-play.js"></script>` 
+no.twLocalScript = no.twLocal
 
 no.twCdnUrl = "https://cdn.tailwindcss.com" 
 
