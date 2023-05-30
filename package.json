@@ -1,6 +1,6 @@
 {
   "name": "node-html",
-  "version": "1.0.0-beta.57",
+  "version": "1.0.0-beta.58",
   "main": "node-html.js",
   "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
   "scripts": {

@@ -1,4 +1,6 @@
 const no = {}
+const { log, warn, error } = console
+
 
 no.html = (css, body, script, title, favicon, headScript) => {
 	if(!css) {
@@ -52,7 +54,7 @@ no.makeIndex = (path, html) => {
 }
 
 no.makeHTML = (pathAndFileName, html) => {
-	if(!pathAndFileName) return console.error('path and filename required')
+	if(!pathAndFileName) return error('path and filename required')
 	if(!html) html = no.html()
 	fs.writeFileSync(pathAndFileName, html)
 }
@@ -61,7 +63,7 @@ const express = require('express')
 no.server = port => {
 	if(!port) port = 8000
 	no.expressApp = express()
-	no.expressApp.listen(port, () => console.log('http://localhost:' + port))
+	no.expressApp.listen(port, () => log('http://localhost:' + port))
 	return no.expressApp
 }
 no.serve = no.server
@@ -152,19 +154,19 @@ const compile = async (watch, compress, clientJsName, bundleName, cli) => {
 
 		const bundle = () => {
 			b.bundle( (err, buff) => {
-				if(err) return console.warn(err)
+				if(err) return warn(err)
 				fs.writeFile(bundleOutputPath,buff, (err) => {
-					if(err) return console.warn(err)
-					console.log(`wrote to ${bundleName}`)
+					if(err) return warn(err)
+					log(`wrote to ${bundleName}`)
 					if(compress) {
 						let options = {
 							compress : _.isObject(compress) ? compress : {}
 						}
-						console.log('compressing...')
+						log('compressing...')
 						let result = UglifyJS.minify(fs.readFileSync(bundleOutputPath, 'utf8'), options)
-						if (result.error) return console.error(result.error)
+						if (result.error) return error(result.error)
 						fs.writeFileSync(bundleOutputPath, result.code)
-						console.log('done!')
+						log('done!')
 					}
 					resolve()
 				})
@@ -193,7 +195,7 @@ const compile = async (watch, compress, clientJsName, bundleName, cli) => {
 		  ]
 		})
 		b.on('update', () => {
-			console.log('writing new bundle...')
+			log('writing new bundle...')
 			bundle()
 		})
 		bundle()
@@ -210,7 +212,7 @@ no.compress = (inputScript, outputTarget, options) => {
 	}
 	if(!outputTarget) outputTarget = __dirname + 'bundle.js'
 	let result = UglifyJS.minify(inputScript, options)
-	if (result.error) return console.error(result.error)
+	if (result.error) return error(result.error)
 	fs.writeFileSync(outputTarget, result.code)
 }
 
