@@ -1,6 +1,6 @@
 {
   "name": "node-html",
-  "version": "1.0.0-beta.58",
+  "version": "1.0.0-beta.59",
   "main": "node-html.js",
   "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
   "scripts": {
@@ -32,13 +32,13 @@
     "@babel/runtime": "7.11.2",
     "babelify": "10.0.0",
     "browserify": "16.5.2",
-    "cheerio": "1.0.0-rc.3",
-    "express": "4.17.1",
+    "cheerio": "1.0.0-rc.12",
+    "express": "4.18.2",
     "minimist": "1.2.8",
     "stringify": "5.2.0",
     "tailwindcss": "2.2.17",
     "uglify-js": "3.12.1",
-    "underscore": "1.12.0",
+    "underscore": "1.13.6",
     "underscore.string": "3.3.5",
     "watchify": "4.0.0"
   },
