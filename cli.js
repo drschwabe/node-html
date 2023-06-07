@@ -17,6 +17,13 @@ if(command === 'watch') {
     process.cwd() + '/client.js', 'client.bundle.js', true)  
 } 
 
+if(command === 'compress') {
+  log('compress client.js ....') 
+  no.compile(true, true, 
+    process.cwd() + '/client.js', 'client.bundle.js', true)  
+}    
+
+
 if(command === 'serve') {
   log('start Express server....') 
   no.server() 
