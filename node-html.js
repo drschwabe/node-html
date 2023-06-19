@@ -185,7 +185,7 @@ const compile = async (watch, compress, clientJsName, bundleName, cli) => {
 		})
 		b.add(inputPath ? inputPath : `${baseDirectory}/${clientJsName}`)
 		b.transform("babelify", {
-			presets: ["@babel/preset-env"],
+			//presets: ["@babel/preset-env"],
 			sourceType : 'unambiguous',
 			global: true,
 			plugins: [
