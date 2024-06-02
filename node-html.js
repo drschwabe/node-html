@@ -1,5 +1,6 @@
 const no = {}
 const { log, warn, error } = console
+const fs = require('fs')
 
 
 no.html = (css, body, script, title, favicon, headScript) => {
@@ -46,7 +47,6 @@ no.html = (css, body, script, title, favicon, headScript) => {
 `
 }
 
-const fs = require('fs')
 no.makeIndex = (path, html) => {
 	if(!path) path = process.cwd() + '/index.html'
 	if(!html) html = no.html()
@@ -95,15 +95,11 @@ no.serveIndex = no.index //< alias
 
 //CSS:
 const stringify = require('stringify')
-stringify.registerWithRequire({
-	appliesTo: {includeExtensions: ['.css']}
-})
-//^ the above tek let's us then require CSS below:
 
 const path = require('path')
 const tailwindModulePath = require.resolve('tailwindcss')
 const tailwindDistPath = path.resolve( tailwindModulePath, '../../dist/')
-no.css = require(tailwindDistPath + '/tailwind.min.css' )
+no.css = fs.readFileSync( tailwindDistPath + '/tailwind.min.css' , 'utf8') 
 no.twCss = no.css //< alias 
 no.style = `<style>${no.css}</style>`
 no.twStyle = no.style 
