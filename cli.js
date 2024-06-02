@@ -19,7 +19,7 @@ if(command === 'watch') {
 
 if(command === 'compress') {
   log('compress client.js ....') 
-  no.compile(true, true, 
+  no.compile(false, true, 
     process.cwd() + '/client.js', 'client.bundle.js', true)  
 }    
 
