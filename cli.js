@@ -27,4 +27,5 @@ if(command === 'compress') {
 if(command === 'serve') {
   log('start Express server....') 
   no.server() 
+  no.static() 
 }
