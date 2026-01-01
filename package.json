@@ -1,6 +1,6 @@
 {
   "name": "node-html",
-  "version": "1.0.0-beta.65",
+  "version": "2.0.0-alpha.1",
   "main": "node-html.js",
   "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
   "scripts": {
@@ -12,7 +12,6 @@
     "browserify",
     "html skeleton",
     "html",
-    "bundle",
     "node",
     "import",
     "require",
@@ -24,14 +23,6 @@
     "url": "https://github.com/drschwabe/node-html"
   },
   "dependencies": {
-    "@babel/core": "7.5.5",
-    "@babel/plugin-external-helpers": "7.10.4",
-    "@babel/plugin-transform-react-jsx": "7.21.5",
-    "@babel/plugin-transform-runtime": "7.11.5",
-    "@babel/preset-env": "7.5.5",
-    "@babel/runtime": "7.11.2",
-    "babelify": "10.0.0",
-    "browserify": "16.5.2",
     "cheerio": "1.0.0-rc.12",
     "express": "4.19.2",
     "minimist": "1.2.8",

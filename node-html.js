@@ -94,8 +94,6 @@ no.index = (html, port, expressApp) => {
 no.serveIndex = no.index //< alias
 
 //CSS:
-const stringify = require('stringify')
-
 const path = require('path')
 const tailwindModulePath = require.resolve('tailwindcss')
 const tailwindDistPath = path.resolve( tailwindModulePath, '../../dist/')
@@ -108,109 +106,6 @@ no.twStyle = no.style
 const cheerio = require('cheerio') 
 no.jquery = cheerio.load
 no.jQuery = cheerio.load //< alias; common spelling variant.
-
-//bundle...
-const browserify = require('browserify')
-const watchify = require('watchify')
-const UglifyJS = require("uglify-js")
-const _ = require('underscore')
-
-const compile = async (watch, compress, clientJsName, bundleName, cli) => {
-	return new Promise((resolve, reject) => {
-		if(!clientJsName) clientJsName = 'client.js'
-
-		let clientBaseName =  _s(clientJsName).strLeftBack('.js').strRightBack('/').value() 
-
-		let targetDirectory, inputPath  
-		if(bundleName && bundleName.search('/') > -1) {
-			targetDirectory =  _s.strLeftBack( bundleName, '/' )
-		} else if(clientJsName.search('/') > -1) {
-			targetDirectory =  _s.strLeftBack( clientJsName, '/' )
-      inputPath = clientJsName 
-		}
-
-		if(!bundleName && targetDirectory) {
-			bundleName = `${targetDirectory}/${clientBaseName}.bundle.js`
-		} else if(!bundleName) {
-			bundleName = `${clientBaseName}.bundle.js`
-		} 
-
-    let baseDirectory = cli ? process.cwd() 
-      : _s.strLeftBack( require.main.filename , '/' )           
-
-		let b = browserify({
-			cache: {},
-			packageCache: {},
-			debug : true,
-			basedir : baseDirectory,
-			commondir : false
-		})
-
-		const bundleOutputPath = targetDirectory ? bundleName : baseDirectory + '/' + bundleName
-
-		const bundle = () => {
-			b.bundle( (err, buff) => {
-				if(err) return warn(err)
-				fs.writeFile(bundleOutputPath,buff, (err) => {
-					if(err) return warn(err)
-					log(`wrote to ${bundleName}`)
-					if(compress) {
-						let options = {
-							compress : _.isObject(compress) ? compress : {}
-						}
-						log('compressing...')
-						let result = UglifyJS.minify(fs.readFileSync(bundleOutputPath, 'utf8'), options)
-						if (result.error) return error(result.error)
-						fs.writeFileSync(bundleOutputPath, result.code)
-						log('done!')
-					}
-					resolve()
-				})
-			})
-			.on('error', error => {
-				reject(error)
-			})
-		}
-
-		if(watch) b.plugin(watchify)
-
-		b.transform(stringify({
-			extensions: [ '.html' , '.css', '.svg'],
-		}), {
-			global: true
-		})
-		b.add(inputPath ? inputPath : `${baseDirectory}/${clientJsName}`)
-		b.transform("babelify", {
-			//presets: ["@babel/preset-env"],
-			sourceType : 'unambiguous',
-			global: true,
-			plugins: [
-        ["@babel/plugin-transform-runtime", {absoluteRuntime : true }],
-        "@babel/plugin-transform-modules-commonjs", 
-        ["@babel/plugin-transform-react-jsx", { "pragma": "createElement" }] 
-		  ]
-		})
-		b.on('update', () => {
-			log('writing new bundle...')
-			bundle()
-		})
-		bundle()
-	})
-}
-
-no.watch = (...params) => compile(true, false, ...params)
-
-no.compile = (...params) => compile(...params)
-
-no.compress = (inputScript, outputTarget, options) => {
-	options = {
-		compress : _.isObject(options) ? options : {}
-	}
-	if(!outputTarget) outputTarget = __dirname + 'bundle.js'
-	let result = UglifyJS.minify(inputScript, options)
-	if (result.error) return error(result.error)
-	fs.writeFileSync(outputTarget, result.code)
-}
 
 no.twCdn = `
   <script src="https://cdn.tailwindcss.com"></script>
