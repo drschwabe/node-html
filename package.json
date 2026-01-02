@@ -1,6 +1,6 @@
 {
   "name": "node-html",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "main": "node-html.js",
   "description": "Rapid prototyping & building of pages/apps in as few lines as possible.",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "cheerio": "1.0.0-rc.12",
-    "express": "4.19.2",
+    "express": "4.22.1",
     "minimist": "1.2.8",
     "stringify": "2.2.0",
     "tailwindcss": "2.2.17",
@@ -37,8 +37,7 @@
     "README.md",
     "cli.js",
     "node-html.js"
-    ]
-  , 
+  ],
   "bin": {
     "node-html": "./cli.js"
   }
