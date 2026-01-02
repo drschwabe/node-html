@@ -107,52 +107,7 @@ $.html()
 ```
 <br>
 
-**compile**   
-`await no.compile(watch, compress, clientJsName, bundleName)`  
 
-Runs [browserify] with a preconfigured set of transforms including [stringify] and [babelify] (and [Babel] presets,plugins, and additional pre-configuration).  
-
-Supply booleans as first params to indicate whether to `watch` or `compress` the bundle, and specify a `clientJsName` (ie- the script you want bundled) as well as output bundle name (if the latter two params are not provided will default to `client.js` and `client.bundle.js`)
-
-This 'holy grail' build configuration *if all goes well* should allow you to use ES6 imports and Node/CommonJS require calls interchangeably.  And allows you to require `.html`, `.css`, and `.svg` extensions. 
-
-```javascript
-let html = no.html(null,null, 'client.bundle.js') 
-no.makeIndex(html) //< writes the html to disk
-await no.compile(false,true) 
-//> outputs a compressed bundle of a file called `client.js` in your cwd 
-```
-<br>
-
-
-**watch**   
-`no.watch(clientJsName, bundleName)`  
-
-Alias for `no.compile(true,false)` this will watch the optional `clientJsName` and output `bundleName` (defaults to `client.js` and `client.bundle.js`)
-
-```javascript
-let html = no.html(null,null, 'client.bundle.js') 
-no.watch(null, '/public/client.bundle.js')
-//> creates a bundle of a file named `client.js` and ouptuts to /public/client.bundle.js
-// rebundles anytime you make changes to client.js including any changes to modules within it loaded via import or require
-```
-<br>
-
-Also note: this particular build configuration makes for a rather system intensive process, especially when `watch`ing. 
-
-
-**compress**   
-`no.compress(inputScript, outputTarget, options)`  
-
-Standalone compress function, uses [UglifyJS].minify
-Pass raw script input, optional output target (otherwise defaults to `bundle.js`), and optional options obj which is subsequently passed as `compress` options obj to UglifyJS's Minify API. 
-
-```javascript
-const scriptPath = './public/myBundle.js'
-const script = fs.readFileSync(scriptPath, 'utf-8')
-no.compress(script, scriptPath, { drop_console : true })
-//> ./public/myBundle.js now significantly smaller and no console.log output
-```
 
 MIT
 
@@ -160,8 +115,3 @@ MIT
 [See template]: ./node-html.js#3
 [Tailwind CSS]: https://www.tailwindcss.com
 [cheerio.load]: https://github.com/cheeriojs/cheerio
-[browserify]: https://github.com/browserify/browserify
-[stringify]: https://github.com/JohnPostlethwait/stringify
-[babelify]: https://github.com/babel/babelify
-[Babel]: https://github.com/babel/babel
-[UglifyJS]: https://github.com/mishoo/UglifyJS
