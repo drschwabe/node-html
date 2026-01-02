@@ -33,6 +33,12 @@
     "underscore.string": "3.3.5",
     "watchify": "4.0.0"
   },
+  "files": [
+    "README.md",
+    "cli.js",
+    "node-html.js"
+    ]
+  , 
   "bin": {
     "node-html": "./cli.js"
   }
