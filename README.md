@@ -2,9 +2,8 @@
 
 For rapid prototyping & building of webpages or apps in as few lines as possible.
 
-node-html is small lib with a set of convenience functions to get you quickly going with a functional HTML/CSS/JS page or app - including one-liners for generating an HTML skeleton,  starting an Express server, serving a static directory, and building a client-side bundle (compile or watch) 
+node-html is small lib with a set of convenience functions to get you quickly going with a functional HTML/CSS/JS page or app - including one-liners for generating an HTML skeleton,  starting an Express server, and serving a static directory. 
 
-The watch & compile functions are pre-configured to accommodate using ES6 module import + CommonJS require formats *at the same time* - such that you can use either format including both formats in the same JS file if you so please. 
 
 ### usage
 ```bash
